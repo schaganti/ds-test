@@ -11,7 +11,6 @@ public class MoveZeros {
         int[] nums = new int[]{0, 1, 0, 3, 12};
         new MoveZeros().moveZeroes(nums);
         Arrays.stream(nums).forEach(System.out::println);
-
     }
 
     public void moveZeroes(int[] nums) {

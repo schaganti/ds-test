@@ -1,43 +1,31 @@
 package chags.io.ds.fb;
 
-import java.util.HashSet;
-
 public class LongestSubStringWithoutRepeatingChars {
 
     public static void main(String[] args) {
         LongestSubStringWithoutRepeatingChars longestLength = new LongestSubStringWithoutRepeatingChars();
-        System.out.println(longestLength.lengthOfLongestSubstring("bbbbb"));
+        System.out.println(longestLength.lengthOfLongestSubstring("pwwkew"));
 
     }
+
     public int lengthOfLongestSubstring(String s) {
 
+        char[] charSet = new char[128];
+        int left = 0;
+        int right = 0;
+        int longestLength = 0;
+
         char[] chars = s.toCharArray();
-
-        String  readCharStr = new String("");
-
-        int longestLength = 1;
-
-        for(int i=0;i<chars.length; i++) {
-            String ch = "" + chars[i];
-            if(!readCharStr.contains(ch)) {
-                readCharStr = readCharStr + ch;
-            } else {
-                longestLength = Math.max(longestLength,readCharStr.length());
-                readCharStr = trim(readCharStr, ch);
-                readCharStr = readCharStr + ch;
-                if(i==chars.length-1) {
-                    readCharStr = trim(readCharStr, ch);
-                }
+        //"abcabcbb"
+        for (int i = 0; i < chars.length; i++, right++) {
+            int ch = chars[i];
+            while (charSet[ch] != 0) {
+                longestLength = Math.max((right - left), longestLength);
+                charSet[chars[left]]--;
+                left++;
             }
+            charSet[ch]++;
         }
-
-        return Math.max(readCharStr.length(), longestLength);
+        return Math.max((right - left), longestLength);
     }
-    public String trim(String readCharStr, String ch) {
-        while (readCharStr.contains(ch)) {
-            readCharStr = readCharStr.substring(1);
-        }
-        return readCharStr;
-    }
-
 }
